@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ImprowinDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TblComment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentTitle" Type="varchar" MaxLength="100" />
+          <Property Name="CommentDesc" Type="text" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreationDt" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModificationDt" Type="datetime" />
+          <Property Name="ActiveCD" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusValue" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK__TblCommen__Activ__24927208">
+          <End Role="TblStatus" Type="Self.TblStatus" Multiplicity="1" />
+          <End Role="TblComment" Type="Self.TblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="TblComment">
+              <PropertyRef Name="ActiveCD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ImprowinDBModelStoreContainer">
+          <EntitySet Name="TblComment" EntityType="Self.TblComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblStatus" EntityType="Self.TblStatus" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TblCommen__Activ__24927208" Association="Self.FK__TblCommen__Activ__24927208">
+            <End Role="TblStatus" EntitySet="TblStatus" />
+            <End Role="TblComment" EntitySet="TblComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ImprowinDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TblComment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CommentDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDt" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModificationDt" Type="DateTime" Precision="3" />
+          <Property Name="ActiveCD" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TblStatu" Relationship="Self.FK__TblCommen__Activ__24927208" FromRole="TblComment" ToRole="TblStatus" />
+        </EntityType>
+        <EntityType Name="TblStatu">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusValue" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TblComments" Relationship="Self.FK__TblCommen__Activ__24927208" FromRole="TblStatus" ToRole="TblComment" />
+        </EntityType>
+        <Association Name="FK__TblCommen__Activ__24927208">
+          <End Role="TblStatus" Type="Self.TblStatu" Multiplicity="1" />
+          <End Role="TblComment" Type="Self.TblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="TblComment">
+              <PropertyRef Name="ActiveCD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ImprowinDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblComments" EntityType="Self.TblComment" />
+          <EntitySet Name="TblStatus" EntityType="Self.TblStatu" />
+          <AssociationSet Name="FK__TblCommen__Activ__24927208" Association="Self.FK__TblCommen__Activ__24927208">
+            <End Role="TblStatus" EntitySet="TblStatus" />
+            <End Role="TblComment" EntitySet="TblComments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ImprowinDBModelStoreContainer" CdmEntityContainer="ImprowinDBEntities1">
+          <EntitySetMapping Name="TblComments">
+            <EntityTypeMapping TypeName="ImprowinDBModel.TblComment">
+              <MappingFragment StoreEntitySet="TblComment">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="CommentTitle" ColumnName="CommentTitle" />
+                <ScalarProperty Name="CommentDesc" ColumnName="CommentDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreationDt" ColumnName="CreationDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModificationDt" ColumnName="ModificationDt" />
+                <ScalarProperty Name="ActiveCD" ColumnName="ActiveCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblStatus">
+            <EntityTypeMapping TypeName="ImprowinDBModel.TblStatu">
+              <MappingFragment StoreEntitySet="TblStatus">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusValue" ColumnName="StatusValue" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

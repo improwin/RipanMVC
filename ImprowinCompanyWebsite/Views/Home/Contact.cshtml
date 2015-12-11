@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<div id="headerContent">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            
+                
+                        
+
+            $("#contactForm").submit(function (e) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Contact")",
+                    //contentType: "application/json ; charset=utf-8",
+                    data: $("#contactForm").serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("inside function");
+                        if (response.msg == 'success') {
+                            //debugger;
+                            //console.log("inside if");
+                            $("#contactForm").hide();
+                            $("#sendstatus").text('Your message has been sent successfully');
+                            $("#sendstatus").show('slow');
+                        }
+
+        else {
+            //console.log("inside else");
+                            $("#contactForm").hide();
+            $("#sendstatus").attr('class','status alert alert-danger');
+            $("#sendstatus").text('We apollogize for a technical issue which prevented mail send.');
+            $("#sendstatus").show('slow');
+        }
+        },
+        error: function (response) {
+            //console.log("Failure");
+            $("#contactForm").hide();
+            $("#sendstatus").class("status alert alert-danger");
+            $("#sendstatus").text('We apollogize for a technical issue on communication with server');
+            $("#sendstatus").show();
+        }
+        });
+
+        e.preventDefault();
+        })
+        })
+
+    </script>
+</div>
+
+<section id="contact-info">
+    <div class="center">
+        <h2>How to Reach Us?</h2>
+        <p class="lead">Tell us about your expectation so we can give you the right solution.</p>
+        
+    </div>
+    <div class="footer_div">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 text-center">
+
+                    <div class="gmap">
+                        <iframe style="height:130%;width:100%;border:0;margin-top:-75px;" src="https://www.google.com/maps/embed/v1/place?q=Kolkata,+West+Bengal,+India&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+                    </div>
+
+                </div>
+                <div class="col-sm-5 col-sm-offset-1 clumn_box">
+                    <h5> Improwin Software Solutions </h5>
+                    <p> Web Design Company, India. Checkout.com, Inc. is an authorized retailer of Improwin Software Solutions </p> <hr />
+                    <p>Improwin Solutions.&nbsp;&nbsp;        <i class="fa fa-clock-o"> 9am to 6pm</i>   <br />Shatabdi Park, Block E Kolkata - 700099</p>
+                    <p><i class="fa fa-envelope"></i>&nbsp; <a href="mailto:info@improwindolutions.com">info@improwindolutions.com</a> </p>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>  <!--/gmap_area -->
+<!--Start-->
+<!--End-->
+<section id="contact-page">
+    <div class="container">
+        <div class="center">
+            <h2>Drop Your Message</h2>
+            <p class="lead">To learn more about whether our services are right for your business need, please complete the form below.</p>
+        </div>
+        <!--Start-->
+    <div>
+        <div id="sendstatus" class="status alert alert-success" style="display: none; text-align: center; font-size:large"></div>
+
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "contactForm" }))
+        {
+            <div class="row contact-wrap">
+                <div class="status alert alert-success" style="display: none"></div>
+
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" class="form-control" id="name" name="name" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control" id="email" name="email" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" id="ph" name="ph" />
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" id="company" name="company" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Submit Message" />
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label>Subject *</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required="required" />
+
+                    </div>
+                    <div class="form-group">
+                        <label>Message *</label>
+                        <textarea class="form-control" id="msg" name="msg" required="required" rows="8"></textarea>
+
+                    </div>
+
+                </div>
+
+            </div><!--/.row-->
+        <!--End-->
+
+        }
+    </div><!--/.container-->
+
+           
+
+</section><!--/#contact-page-->

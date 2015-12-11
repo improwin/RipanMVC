@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImprowinDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TblComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentTitle" Type="varchar" MaxLength="100" />
+    <Property Name="CommentDesc" Type="text" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="CreationDt" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModificationDt" Type="datetime" />
+    <Property Name="ActiveCD" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblStatus">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusValue" Type="int" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK__TblCommen__Activ__24927208">
+    <End Role="TblStatus" Type="Self.TblStatus" Multiplicity="1" />
+    <End Role="TblComment" Type="Self.TblComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblStatus">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="TblComment">
+        <PropertyRef Name="ActiveCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ImprowinDBModelStoreContainer">
+    <EntitySet Name="TblComment" EntityType="Self.TblComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblStatus" EntityType="Self.TblStatus" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TblCommen__Activ__24927208" Association="Self.FK__TblCommen__Activ__24927208">
+      <End Role="TblStatus" EntitySet="TblStatus" />
+      <End Role="TblComment" EntitySet="TblComment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

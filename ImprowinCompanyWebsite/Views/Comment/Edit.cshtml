@@ -1,0 +1,92 @@
+﻿@model ImprowinCompanyWebsite.TblComment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<script>
+    $(document).ready(function () {
+        $('.datetimepicker').datetimepicker({
+            format: 'lll'
+        });
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CommentID)
+    <div>
+        <div id="sendstatus" class="status alert alert-success" style="display: none; text-align: center; font-size:large"></div>
+          <div class="row contact-wrap">
+                <div class="status alert alert-success" style="display: none"></div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="form-group">
+                        <label>CreatedBy *</label>
+                        @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>CreationDt *</label>
+                        @Html.EditorFor(model => model.CreationDt, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreationDt, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="form-group">
+                        <label>ModifiedBy</label>
+                        @Html.EditorFor(model => model.ModifiedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ModifiedBy, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="form-group">
+                        <label>ModificationDt</label>
+                        @Html.EditorFor(model => model.ModificationDt, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ModificationDt, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="form-group">
+                        <label>Active Status</label>
+                        @Html.DropDownListFor(model => model.ActiveCD, ViewBag.StatusValue as SelectList, new { Styles = "width:300px" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-lg" /> 
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label>CommentTitle *</label>
+                        @Html.EditorFor(model => model.CommentTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CommentTitle, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Message *</label>
+                        
+                        @Html.TextAreaFor(model => model.CommentDesc, 10, 75, null)
+                        @Html.ValidationMessageFor(model => model.CommentDesc, "", new { @class = "textdanger" })
+
+
+                    </div>
+                </div>
+            </div><!--/.row-->
+        <!--End-->
+
+        
+    </div><!--/.container-->
+    
+}
+
+<div>
+   
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

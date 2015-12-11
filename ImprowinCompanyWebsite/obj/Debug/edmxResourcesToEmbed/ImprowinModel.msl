@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ImprowinDBModelStoreContainer" CdmEntityContainer="ImprowinDBEntities1">
+    <EntitySetMapping Name="TblComments">
+      <EntityTypeMapping TypeName="ImprowinDBModel.TblComment">
+        <MappingFragment StoreEntitySet="TblComment">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="CommentTitle" ColumnName="CommentTitle" />
+          <ScalarProperty Name="CommentDesc" ColumnName="CommentDesc" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDt" ColumnName="CreationDt" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModificationDt" ColumnName="ModificationDt" />
+          <ScalarProperty Name="ActiveCD" ColumnName="ActiveCD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblStatus">
+      <EntityTypeMapping TypeName="ImprowinDBModel.TblStatu">
+        <MappingFragment StoreEntitySet="TblStatus">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusValue" ColumnName="StatusValue" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

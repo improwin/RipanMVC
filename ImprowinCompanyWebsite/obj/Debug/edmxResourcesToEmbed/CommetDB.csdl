@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImprowinDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ImprowinDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblComments" EntityType="ImprowinDBModel.TblComment" />
+    <EntitySet Name="TblStatus" EntityType="ImprowinDBModel.TblStatu" />
+    <AssociationSet Name="FK__TblCommen__Activ__24927208" Association="ImprowinDBModel.FK__TblCommen__Activ__24927208">
+      <End Role="TblStatu" EntitySet="TblStatus" />
+      <End Role="TblComment" EntitySet="TblComments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TblComment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CommentDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDt" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModificationDt" Type="DateTime" Precision="3" />
+    <Property Name="ActiveCD" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TblStatu" Relationship="ImprowinDBModel.FK__TblCommen__Activ__24927208" FromRole="TblComment" ToRole="TblStatu" />
+  </EntityType>
+  <EntityType Name="TblStatu">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusValue" Type="Int32" Nullable="false" />
+    <Property Name="StatusName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TblComments" Relationship="ImprowinDBModel.FK__TblCommen__Activ__24927208" FromRole="TblStatu" ToRole="TblComment" />
+  </EntityType>
+  <Association Name="FK__TblCommen__Activ__24927208">
+    <End Type="ImprowinDBModel.TblStatu" Role="TblStatu" Multiplicity="1" />
+    <End Type="ImprowinDBModel.TblComment" Role="TblComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblStatu">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="TblComment">
+        <PropertyRef Name="ActiveCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
